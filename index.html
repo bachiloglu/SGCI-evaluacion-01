@@ -115,11 +115,21 @@ Este documento se compuso con harto copy/paste
                             var quinto  =   "<h5 class=\"card-title\">" + data[x].nombreEstadio + "</h5>"
                             var sexto   =   "<p class=\"card-text\">" + data[x].equipo + "</p>";
                             var septimo =   "<p class=\"card-text\">" + data[x].capacidad + " espectadores</p>";
-                        var octavo  =   "</div>";
-                    var noveno  =   "</div>";
-                var decimo  =   "</div>";
+                              var octavo  =   "</div>";
+                      if (parseInt(data[x].capacidad) >= 40000) {
+                        var noveno  =   "<p id=\"novenob\" class=\"card-text\">Este estadio es apto para un mundial</p>"
+
+                      }
+
+                      else {
+                        var noveno = "<p id=\"noveno\" class=\"card-text\">Este estadio NO es apto para un mundial</p>"
+                      }
+
+
+                            var decimo  =   "</div>";
+                            var once  =   "</div>";
                 // esto se agrega tantas veces como puntos en el mapa, porque estamos dentro del mismo ciclo for
-                $("#info").append(primero + segundo + tercero + cuarto + quinto + sexto + septimo + octavo + noveno + decimo);
+                $("#info").append(primero + segundo + tercero + cuarto + quinto + sexto + septimo + octavo + noveno + decimo+ once);
             }
         });
         //Agrego lo siguiente para que al clic del menú la página suba y baje en 1 segundo, suavecito
