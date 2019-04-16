@@ -28,8 +28,7 @@ Este documento se compuso con harto copy/paste
 </head>
 
 <body id="top">
-
-    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-md fixed-top navbar-dark navbar-dark">
       <div class="container">
         <a class="navbar-brand" href="#top">Bienvenidos</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,7 +76,7 @@ Este documento se compuso con harto copy/paste
 
     <footer>
         <div class="container-fluid">
-            <div class="row small py-2 bg-dark text-light">
+            <div class="row small py-2 color text-light">
                 <div class="col-sm-6 py-3">Seminario de Gráfica Computacional I</div>
                 <div class="col-sm-6 py-3 text-md-right">Fernando Catalán Bachiloglu © 2019</div>
             </div>
@@ -103,35 +102,68 @@ Este documento se compuso con harto copy/paste
                 id: 'mapbox.streets' //otras opciones: mapbox.satellite, mapbox.streets, mapbox.dark, mapbox.light
             }).addTo(mymap);
             // Después puedes explorar el arreglo en la variable de nombre data con un ciclo for
-            for (var x = 0; x < data.length; x++) {
                 // con esto se agregan puntos en el plano por cada dato
-                L.marker([data[x].coordenadas[0], data[x].coordenadas[1]]).addTo(mymap).bindPopup("<dl><dt>"+data[x].nombreEstadio+"</dt><dd>"+data[x].equipo+"</dd></dl>").closePopup();
+
                 // aprovechando el ciclo for, podemos crear otros elementos, fuera del mapa
                 // revisen el primer ejemplo en https://getbootstrap.com/docs/4.0/components/card/
+
+
+                var verdeicon = L.icon({
+                  iconUrl: 'green-pin.png',
+                  iconSize: [20, 32]
+                });
+                var rojoicon = L.icon({
+                  iconUrl: 'red-pin.png',
+                  iconSize: [20, 32]
+                });
+
+
+                for (var x = 0; x < data.length; x++) {
+                  if(parseInt(data[x].capacidad) >= 40000){
+                    L.marker([data[x].coordenadas[0], data[x].coordenadas[1]], {icon: verdeicon}).addTo(mymap).bindPopup("<dl><dt>"+data[x].nombreEstadio+"</dt><dd>"+data[x].equipo+"</dt><dd>"+'Apto para un mundial'+"</dd></dl>").closePopup();
+                  } else {
+                    L.marker([data[x].coordenadas[0], data[x].coordenadas[1]], {icon: rojoicon}).addTo(mymap).bindPopup("<dl><dt>"+data[x].nombreEstadio+"</dt><dd>"+data[x].equipo+"</dt><dd>"+'No apto para un mundial'+"</dd></dl>").closePopup();
+                  }
+
+                var coordlink = 'https://www.google.com/maps/@'+data[x].coordenadas[0]+','+data[x].coordenadas[1]+',17z';
+                console.log(coordlink);
+
+
                 var primero =   "<div class=\"col-sm-4 col-lg-3 my-3\">";
                     var segundo =   "<div class=\"card\">";
-                        var tercero =   "<img src=\"" + data[x].foto + "\" class=\"card-img-top\">";
+                        var tercero =   "<figure><img src=\"" + data[x].foto + "\" class=\"card-img-top\"> </figure>";
                         var cuarto  =   "<div class=\"card-body\">";
                             var quinto  =   "<h5 class=\"card-title\">" + data[x].nombreEstadio + "</h5>"
                             var sexto   =   "<p class=\"card-text\">" + data[x].equipo + "</p>";
                             var septimo =   "<p class=\"card-text\">" + data[x].capacidad + " espectadores</p>";
                               var octavo  =   "</div>";
                       if (parseInt(data[x].capacidad) >= 40000) {
-                        var noveno  =   "<p id=\"novenob\" class=\"card-text\">Este estadio es apto para un mundial</p>"
+                        var noveno  =   "<p id=\"novenob\" class=\"card-text p-3\">Apto para un mundial</p>"
 
                       }
 
                       else {
-                        var noveno = "<p id=\"noveno\" class=\"card-text\">Este estadio NO es apto para un mundial</p>"
+                        var noveno = "<p id=\"noveno\" class=\"card-text p-3\">No es apto para un mundial</p>"
                       }
 
 
-                            var decimo  =   "</div>";
+                    var decimo  =   "<a href=\"" + coordlink + "\" target=\"_blank\" class=\"btn btn-light \">Mapa</a>";
                             var once  =   "</div>";
                 // esto se agrega tantas veces como puntos en el mapa, porque estamos dentro del mismo ciclo for
                 $("#info").append(primero + segundo + tercero + cuarto + quinto + sexto + septimo + octavo + noveno + decimo+ once);
             }
         });
+
+        $(document).scroll(function(){
+          if ($(this).scrollTop() > 650) {
+            $('nav').addClass("color");
+          } else {
+            $('nav').removeClass("color");
+      }
+   });
+
+
+
         //Agrego lo siguiente para que al clic del menú la página suba y baje en 1 segundo, suavecito
         $('a[href*="#"]:not([href="#"])').click(function() {
             if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {

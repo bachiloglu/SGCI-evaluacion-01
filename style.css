@@ -15,6 +15,20 @@ nav{
   font-weight: 400;
 }
 
+.navbar-dark {
+    background-color: transparent;
+    }
+
+.color {
+    background-color:#cc2828;
+    color:white;
+}
+
+
+.fondo {
+  background-color: #c4c4c4;
+}
+
 header {
   position: relative;
   background-color: black;
@@ -57,13 +71,37 @@ header .overlay {
 
 #noveno {
   color: red;
-  margin-left: 8%;
   }
 
 #novenob {
   color: green;
-  margin-left: 8%;
   }
+
+.card {
+  border-radius: 0;
+  border-radius: none;
+}
+
+.card figure{
+  overflow: hidden;
+}
+
+.card .card-img-top{
+  border-radius: 0;
+  -moz-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+
+}
+
+.card-img-top:hover{
+
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+
 
 @media (pointer: coarse) and (hover: none) {
   header {
